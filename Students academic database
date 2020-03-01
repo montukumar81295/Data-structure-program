@@ -1,0 +1,55 @@
+students = {}
+#GENERATE DUCATE ID
+courses = {
+	1:"PYTHON",
+	2:"DJANGO",
+	3:"MACHINE LEARNING",
+	4:"DATA SCIENCE",
+	5:"HYBIRD APPLICATION DEVELOPMENT"
+}
+ducat_id = 12347890
+while True:
+	ducat_id += 1
+	name = []
+	name.append(input('ENTER YOUR NAME : '))
+	name.append(input('ENTER YOUR LAST NAME : '))
+	
+	address = []
+	address.append(input('ENTER HOUSE NUMBER : '))
+	address.append(input('ENTER LOCALITY : '))
+	address.append(input('ENTER CITY : '))
+	address.append(input('ENTER PINCODE : '))
+	
+	mobile_numbers = []
+	for x in range(int(input('ENTER NUMBER OF MOBILE NUMBERS : '))):
+		mobile_numbers.append(input('ENTER MOBILE NUMBER : '))
+	
+	emails = []
+	for x in range(int(input('ENTER NUMBER OF EMAILS : '))):
+		emails.append(input('ENTER EMAIL ADDRESS : '))
+	
+	personal_details = (name,address,mobile_numbers,emails)
+	
+	coll_name = input('ENTER NAME OF YOUR CLG : ')
+	grad_course = input('ENTER COURSE NAME : ')
+	
+	flag = True
+	while flag:
+		for k,v in courses.items():
+			print(f"{k} --> {v}")
+		course_id = int(input('ENTER COURSE ID : '))
+		flag = False if course_id in courses.keys() else True
+
+	 course_name = course[course_id] 
+   
+  # IF ID IS WRONG THAN IT WILL RAISE ERR
+	course_name = courses.get(course_id,"WRONG COURSE ID")
+		
+	academic_details = (coll_name,grad_course,course_name)
+	
+	students.setdefault(ducat_id,(personal_details,academic_details))
+	print("STUDENT ADDED")
+	
+	ch = input('ADD MORE STUDENTS ? : ')
+	if ch[0].lower() == 'n':
+		break

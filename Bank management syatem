@@ -1,0 +1,77 @@
+from sys import exit
+
+account_holders = {}
+account_number = 0
+def accountopen():
+	global account_holders
+	global account_number
+	account_number += 1
+	data = []
+	data.append(input('ENTER NAME : '))
+	data.append(input('ENTER ADDRESS : '))
+	data.append(float(input('ENTER INITIAL AMOUNT : ')))
+	account_holders[account_number] = data
+	menu()
+
+def deposit(amount):
+	ac_no = int(input('ENTER ACCOUNT NUMBER : '))
+	if ac_no in account_holders:
+		account_holders[ac_no][-1] += amount
+		print('NEW BALANCE IS : ',account_holders[ac_no][-1])
+	else:
+		print('INVALID ACCOUNT NUMBER')
+		deposit(amount)
+	menu()
+
+def withdraw(amount):
+	ac_no = int(input('ENTER ACCOUNT NUMBER : '))
+	
+	def deduct():
+		amount = float(input("ENTER AMOUNT : "))
+		account_holders[ac_no][-1] -= amount
+
+	if ac_no in account_holders:
+		if amount - account_holders[ac_no][-1] >= 1000:
+			deduct()
+		else:
+			print('YOU CAN NOT WITHDRAW THIS AMOUNT')
+			deduct()
+			
+	else:
+		print('INVALID ACCOUNT NUMBER')
+		withdraw(amount)
+	menu()
+
+def balanceenquiry():
+	print(
+		account_holders.get(
+			int(
+				input('ENTER ACCOUNT NUMBER : ')
+			),
+			"WRONG ACCOUNT NUMBER"	
+		)[-1]
+	)
+	menu()
+
+menues = {
+	1:("ACCOUNT OPEN",accountopen),
+	2:("DEPOSIT",deposit),
+	3:("WITHDRAW",withdraw),
+	4:("BALANCE ENQUIRY",balanceenquiry),
+	5:("EXIT",exit)	
+}
+
+def menu():
+	for k,v in menues.items():
+		print(f"{k} --> {v[0]}")
+	ch = int(input('ENTER OPTION : '))
+	if ch in menues.keys():
+		amount = 0
+		if ch in [2,3]:
+			amount = int(input('ENTER AMOUNT : '))
+			menues.get(ch)[-1](amount)
+		else:
+			menues.get(ch)[-1]()
+	else:
+		print('INVALID CHOICE')
+		menu()
